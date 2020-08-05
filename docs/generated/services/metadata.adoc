@@ -1,1 +1,3 @@
-// placeholder
+
+:template_custom_kubemanifest:
+:template_kubemanifest:

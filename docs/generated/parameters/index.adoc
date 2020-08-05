@@ -1,1 +1,3 @@
-// placeholder
+
+=== Launch Calico into Amazon EKS Quick Start
+include::eks-calico.template.adoc[]
