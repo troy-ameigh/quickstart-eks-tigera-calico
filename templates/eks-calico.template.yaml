@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Deploys Calico NetworkPolicy support for the Amazon VPC CNI plugin on EKS"
+Description: Deploys Calico NetworkPolicy support for the Amazon VPC CNI plugin on Amazon EKS (qs-1r10ti40r)
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch Calico into Amazon EKS Quick Start"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
