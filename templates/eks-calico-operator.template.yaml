@@ -2655,6 +2655,7 @@ Resources:
       ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
       ClusterName: !Ref KubeClusterName
       Manifest:
+        apiVersion: rbac.authorization.k8s.io/v1
         kind: ClusterRole
         metadata:
           name: tigera-operator
@@ -2740,6 +2741,25 @@ Resources:
             - poddisruptionbudgets
             verbs:
             - '*'
+          # Add the appropriate pod security policy permissions
+          - apiGroups:
+              - policy
+            resources:
+              - podsecuritypolicies
+            resourceNames:
+              - tigera-operator
+            verbs:
+              - use
+          - apiGroups:
+              - policy
+            resources:
+              - podsecuritypolicies
+            verbs:
+              - get
+              - list
+              - watch
+              - create
+              - update
             # Permissions below this point are required for TSEE only.
           - apiGroups:
               - apiregistration.k8s.io
@@ -2867,7 +2887,7 @@ Resources:
               dnsPolicy: ClusterFirstWithHostNet
               containers:
                 - name: tigera-operator
-                  image: quay.io/tigera/operator:v1.7.1
+                  image: quay.io/tigera/operator:v1.10.2
                   imagePullPolicy: IfNotPresent
                   command:
                     - operator
@@ -2881,4 +2901,4 @@ Resources:
                     - name: OPERATOR_NAME
                       value: "tigera-operator"
                     - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
-                      value: v1.7.1
+                      value: v1.10.2

@@ -6,12 +6,21 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: Calico for EKS
+          default: Configure Calico install
         Parameters:
           - KubeClusterName
+          - ProductVariant
+      - Label:
+          default: Calico Enterprise options
+        Parameters:
+          - DockerConfigJSONBase64
     ParameterLabels:
       KubeClusterName:
         default: EKS cluster name
+      ProductVariant:
+        default: Product variant
+      DockerConfigJSONBase64:
+        default: Image pull secret
 Parameters:
   KubeClusterName:
     Type: String
@@ -23,6 +32,9 @@ Parameters:
       - Calico
       - CalicoEnterprise
     Description: Whether to install Calico or Calico Enterprise.
+  DockerConfigJSONBase64:
+    Type: String
+    Description: Base64 encoded Docker pull configuration for pulling Calico Enterprise images.
 
 Conditions:
   IsEnterprise: !Equals [ !Ref ProductVariant, CalicoEnterprise ]
@@ -64,6 +76,39 @@ Resources:
       Parameters:
         KubeClusterName: !Ref KubeClusterName
 
+  # Pull secret required for Calico Enterprise.
+  CalicoEnterprisePullSecret:
+    Type: "Custom::KubeManifest"
+    DependsOn: OperatorStack
+    Condition: IsEnterprise
+    Properties:
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
+      Manifest:
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: tigera-pull-secret
+          namespace: tigera-operator
+        type: kubernetes.io/dockerconfigjson
+        data:
+          .dockerconfigjson: !Ref DockerConfigJSONBase64
+
+  # If using Calico Enterprise, installs the Calico Enterprise API server.
+  DefaultAPIServer:
+    Type: "Custom::KubeManifest"
+    DependsOn: CRDStack
+    Condition: IsEnterprise
+    Properties:
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
+      Manifest:
+        apiVersion: operator.tigera.io/v1
+        kind: APIServer
+        metadata:
+          name: tigera-secure
+        spec: {}
+
   # Configures the installation.
   DefaultInstallation:
     Type: "Custom::KubeManifest"
@@ -78,4 +123,5 @@ Resources:
           name: default
         spec:
           kubernetesProvider: EKS
-          variant: Calico # CASEY: Should be set to TigeraSecureEnterprise if IsEnterprise condition is true.
+          variant: !If [IsEnterprise, "TigeraSecureEnterprise", "Calico"]
+          imagePullSecrets: !If [IsEnterprise, "[{\"name\": \"tigera-pull-secret\"}]", "[]"]
