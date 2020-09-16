@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Deploys Calico operator CRDs and components
 Metadata:
-  QuickStartDocumentation:
-    EntrypointName: "Launch Calico into Amazon EKS Quick Start"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:

@@ -14,6 +14,12 @@ Metadata:
           default: Calico Enterprise options
         Parameters:
           - DockerConfigJSONBase64
+      - Label:
+          default: AWS Quick Start configuration
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix
+          - QSS3BucketRegion
     ParameterLabels:
       KubeClusterName:
         default: EKS cluster name
@@ -21,6 +27,12 @@ Metadata:
         default: Product variant
       DockerConfigJSONBase64:
         default: Image pull secret
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket region
 Parameters:
   KubeClusterName:
     Type: String
@@ -35,17 +47,45 @@ Parameters:
   DockerConfigJSONBase64:
     Type: String
     Description: Base64 encoded Docker pull configuration for pulling Calico Enterprise images.
+  QSS3BucketName:
+    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
+    ConstraintDescription: Quick Start bucket name can include numbers, lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
+      (-).
+    Default: aws-quickstart
+    Description: S3 bucket name for the Quick Start assets. This string can include
+      numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start
+      or end with a hyphen (-).
+    Type: String
+  QSS3KeyPrefix:
+    AllowedPattern: ^[0-9a-zA-Z-/.]*$
+    ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
+      uppercase letters, hyphens (-), dots(.) and forward slash (/).
+    Default: quickstart-eks-tigera-calico/
+    Description: S3 key prefix for the Quick Start assets. Quick Start key prefix
+      can include numbers, lowercase letters, uppercase letters, hyphens (-), dots(.) and
+      forward slash (/).
+    Type: String
+  QSS3BucketRegion:
+    Default: 'us-east-1'
+    Description: The Region where the Quick Start S3 bucket (QSS3BucketName) is
+      hosted. When using your own bucket, you must specify this value.
+    Type: String
 
 Conditions:
   IsEnterprise: !Equals [ !Ref ProductVariant, CalicoEnterprise ]
   IsNotEnterprise: !Equals [ !Ref ProductVariant, Calico ]
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
 
 Resources:
   # Install the Calico CRDs.
   CRDStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://casey-eks-quickstart.s3.us-east-2.amazonaws.com/eks-calico-crds.template.yaml"
+      TemplateURL: !Sub
+        - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/eks-calico-crds.template.yaml'
+        - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+          S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
       Parameters:
         KubeClusterName: !Ref KubeClusterName
 
@@ -54,7 +94,10 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: IsEnterprise
     Properties:
-      TemplateURL: "https://casey-eks-quickstart.s3.us-east-2.amazonaws.com/eks-calico-enterprise-crds.template.yaml"
+      TemplateURL: !Sub
+        - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/eks-calico-enterprise-crds.template.yaml'
+        - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+          S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
       Parameters:
         KubeClusterName: !Ref KubeClusterName
 
@@ -62,7 +105,10 @@ Resources:
   OperatorStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://casey-eks-quickstart.s3.us-east-2.amazonaws.com/eks-calico-operator.template.yaml"
+      TemplateURL: !Sub
+        - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/eks-calico-operator.template.yaml'
+        - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+          S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
       Parameters:
         KubeClusterName: !Ref KubeClusterName
         ProductVariant: !Ref ProductVariant
@@ -72,7 +118,10 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: IsEnterprise
     Properties:
-      TemplateURL: "https://casey-eks-quickstart.s3.us-east-2.amazonaws.com/eks-calico-prometheus.template.yaml"
+      TemplateURL: !Sub
+        - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/eks-calico-prometheus.template.yaml'
+        - S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+          S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
       Parameters:
         KubeClusterName: !Ref KubeClusterName
 
