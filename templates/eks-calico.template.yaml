@@ -3,6 +3,7 @@ Description: Deploys Calico NetworkPolicy support for the Amazon VPC CNI plugin 
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch Calico into Amazon EKS Quick Start"
+    Order: 1
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
