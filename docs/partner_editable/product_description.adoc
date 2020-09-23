@@ -1,5 +1,5 @@
-// Replace the content in <>
-// Briefly describe the software. Use consistent and clear branding. 
-// Include the benefits of using the software on AWS, and provide details on usage scenarios.
+Calico is the leading open-source network policy implementation for containers and Kubernetes. Calico implements the native Kubernetes network policy API, as well as its own rich network policy model that makes it easy to ensure the only traffic that flows is the traffic you want to flow using native concepts like Namespaces and labels.
 
-<Describe how the software works on AWS.>
+Calico Enterprise builds on top of the foundation provided by Calico, providing enterprise security controls, advanced visibility and troubleshooting, and more for your Kubernetes applications.
+
+Both products work seamlessly on Amazon EKS providing a rich set of cababilities on top of native Amazon VPC pod networking.
