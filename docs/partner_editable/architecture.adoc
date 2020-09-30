@@ -11,9 +11,9 @@ image::../images/architecture_diagram.png[Architecture,width=648,height=439]
 As shown in Figure 1, the Quick Start sets up the following in your Kubernetes cluster:
 
 * The Tigera Operator and associated resources in its own namespace.
-* A custom resource which configures the Calico installation.
-* Calico resources in the `calico-system` namespace.
+* A custom resource which configures the {partner-product-name} installation.
+* {partner-product-name} resources in the `calico-system` namespace.
 
-Figure 2 shows additional resources created for Calico Enterprise:
+Figure 2 shows additional resources created for {partner-product-name} Enterprise:
 
 * The `tigera-system` namespace, which runs the Tigera API server.
