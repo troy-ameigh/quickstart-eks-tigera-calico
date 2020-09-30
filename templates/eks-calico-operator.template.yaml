@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Deploys Calico operator CRDs and components
+Description: Deploys Calico operator CRDs and components (qs-1r6eslplj)
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch Calico Operator"
+    Order: 4
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:

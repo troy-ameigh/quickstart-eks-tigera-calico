@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Deploys Calico NetworkPolicy support for the Amazon VPC CNI plugin on Amazon EKS (qs-1r10ti40r)
+Description: Deploys Calico NetworkPolicy support for the Amazon VPC CNI plugin on Amazon EKS (qs-1r6eslpif)
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch Calico into Amazon EKS Quick Start"
@@ -174,4 +174,4 @@ Resources:
         spec:
           kubernetesProvider: EKS
           variant: !If [IsEnterprise, "TigeraSecureEnterprise", "Calico"]
-          imagePullSecrets: !If [IsEnterprise, "[{\"name\": \"tigera-pull-secret\"}]", "[]"]
+          imagePullSecrets: !If [IsEnterprise, '[{\"name\": \"tigera-pull-secret\"}]', "[]"]

@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Calico Enterprise Custom Resource Definitions
+Description: Calico Enterprise Custom Resource Definitions (qs-1r6eslpkt)
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch Calico CRDS"
+    Order: 2
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:

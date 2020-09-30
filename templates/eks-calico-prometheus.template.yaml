@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Deploys Calico Enterprise Prometheus components
+Description: Deploys Calico Enterprise Prometheus components (qs-1r6eslplp)
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch Calico Prometheus items"
+    Order: 5
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
