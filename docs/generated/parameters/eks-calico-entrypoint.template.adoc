@@ -2,20 +2,20 @@
 .Configure Calico install
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|EKS cluster name
-(`KubeClusterName`)|`**__Requires Input__**`|Name of the EKS cluster in which to deploy Calico.|Product variant
+|Parameter label (name) |Default value|Description|EKS cluster name
+(`KubeClusterName`)|`**__Requires input__**`|Name of the EKS cluster in which to deploy Calico.|Product variant
 (`ProductVariant`)|`Calico`|Whether to install Calico or Calico Enterprise.
 |===
 .Calico Enterprise options
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Image pull secret
-(`DockerConfigJSONBase64`)|`**__Requires Input__**`|Base64 encoded Docker pull configuration for pulling Calico Enterprise images.
+|Parameter label (name) |Default value|Description|Image pull secret
+(`DockerConfigJSONBase64`)|`**__Requires input__**`|Base64 encoded Docker pull configuration for pulling Calico Enterprise images.
 |===
 .AWS Quick Start configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Quick Start S3 bucket name
+|Parameter label (name) |Default value|Description|Quick Start S3 bucket name
 (`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. This string can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 key prefix
 (`QSS3KeyPrefix`)|`quickstart-eks-tigera-calico/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), dots(.) and forward slash (/).|Quick Start S3 bucket region
 (`QSS3BucketRegion`)|`us-east-1`|The Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.

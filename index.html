@@ -762,6 +762,22 @@ table.tableblock .title,
 table p {
   margin: 0rem;
 }
+
+/* Add border around hyperlink images */
+a img {
+    border: 1px solid #A4A4A4;
+}
+
+#preview_mode {
+	border-color:#e0e0dc;
+	-webkit-box-shadow:0 1px 4px #e0e0dc;
+	box-shadow:0 1px 4px #e0e0dc;
+  background:#ffffb3;
+  padding-bottom: 2rem;
+}
+#preview_mode .tableblock {
+  background:#ffffb3;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -784,11 +800,11 @@ table p {
 </li>
 <li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
-<li><a href="#_launch_calico_operator">Launch Calico Operator</a></li>
-<li><a href="#_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</a></li>
 <li><a href="#_launch_calico_into_amazon_eks_quick_start">Launch Calico into Amazon EKS Quick Start</a></li>
-<li><a href="#_launch_calico_prometheus_items">Launch Calico Prometheus items</a></li>
 <li><a href="#_launch_calico_crds">Launch Calico CRDS</a></li>
+<li><a href="#_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</a></li>
+<li><a href="#_launch_calico_operator">Launch Calico Operator</a></li>
+<li><a href="#_launch_calico_prometheus_items">Launch Calico Prometheus items</a></li>
 </ul>
 </li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
@@ -812,18 +828,23 @@ table p {
 </div>
 </div>
 <h3 id="_draft_document_unofficial_guidance" class="discrete text-center">DRAFT DOCUMENT / UNOFFICIAL GUIDANCE</h3>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph text-center">
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/__settings</em>.adoc</code></strong>_</p>
+</div>
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph text-center">
 <p><strong>September, 2020</strong><br>
 <em>Casey Davenport - Tigera</em><br>
 <em></em></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><em><strong>The above information is configured within <code>partner_editable/_settings.adoc</code></strong></em></p>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -846,18 +867,23 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/overview_target_and_usage</code></strong></em></p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/overview_target_and_usage.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>This Quick Start reference deployment guide provides step-by-step instructions for deploying Tigera Calico and Tigera Calico Enterprise on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
 <p>This Quick Start is for users who want to use Calico to provide network policy enforcement capabilities on their Amazon EKS Kubernetes clusters, and for users who want to use Calico Enterprise for enterprise-grade security and compliance use-cases.</p>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -880,9 +906,13 @@ collaborated with AWS on the content of the Quick Start.
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/product_description.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Calico is the leading open-source network policy implementation for containers and Kubernetes. Calico implements the native Kubernetes network policy API, as well as its own rich network policy model that makes it easy to ensure the only traffic that flows is the traffic you want to flow using native concepts like Namespaces and labels.</p>
 </div>
 <div class="paragraph">
@@ -890,9 +920,10 @@ collaborated with AWS on the content of the Quick Start.
 </div>
 <div class="paragraph">
 <p>Both products work seamlessly on Amazon EKS providing a rich set of cababilities on top of native Amazon VPC pod networking.</p>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -907,7 +938,7 @@ using the Quick Start.</p>
 <p>The AWS CloudFormation template for this Quick Start includes
 configuration parameters that you can customize. Some of the settings,
 such as the instance type, affect the cost of deployment. For cost estimates,
-see the pricing pages for each AWS service you will use. Prices are subject to change.</p>
+see the pricing pages for each AWS service you use. Prices are subject to change.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -916,7 +947,7 @@ see the pricing pages for each AWS service you will use. Prices are subject to c
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and finalizes the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
+After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
 </td>
 </tr>
 </table>
@@ -929,16 +960,21 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/licenses.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Calico binaries are provided freely under the Apache 2.0 license.</p>
 </div>
 <div class="paragraph">
 <p>Calico Enterprise requires a full license provided by Tigera. Contact a Tigera sales representative to acquire an enterprise license.</p>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -947,9 +983,13 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/architecture.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Deploying this Quick Start for a new virtual private cloud (VPC) with
 <strong>default parameters</strong> builds the following <em>Calico</em> environment in the
 AWS Cloud.</p>
@@ -985,9 +1025,10 @@ AWS Cloud.</p>
 <p>The <code>tigera-system</code> namespace, which runs the Tigera API server.</p>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -1007,13 +1048,18 @@ Cloud.</p>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/specialized_knowledge.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>This Quick Start assumes familiarity with basic concepts in container networking, Amazon EKS, and Kubernetes.</p>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_aws_account">AWS account</h3>
@@ -1027,7 +1073,7 @@ Cloud.</p>
 <div class="sect2">
 <h3 id="_technical_requirements">Technical requirements</h3>
 <div class="paragraph">
-<p>Before you launch the Quick Start, your account must be configured as specified below. Otherwise, deployment might fail.</p>
+<p>Before you launch the Quick Start, your account must be configured as specified in the following table. Otherwise, deployment might fail.</p>
 </div>
 <div class="sect3">
 <h4 id="_resource_limits">Resource limits</h4>
@@ -1037,24 +1083,15 @@ Cloud.</p>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/service_limits.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-
-</div>
+<div id="preview_mode">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_supported_regions">Supported regions</h4>
-<div class="paragraph">
-<p>The following regions are currently supported by this Quick Start.</p>
-</div>
+<h4 id="_supported_regions">Supported Regions</h4>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/regions.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-
-</div>
+<div id="preview_mode">
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1063,26 +1100,10 @@ Cloud.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Certain regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
+Certain Regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_ec2_key_pairs">EC2 key pairs</h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><em>This section is conditional on EC2 instances being used in the Cloudformation Templates</em></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">instructions in the AWS documentation</a>.</p>
-</div>
-<div class="paragraph">
-<p>For testing or proof-of-concept purposes, we recommend creating a new key pair instead of using one that’s already being used by a production instance.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1096,20 +1117,29 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/pre-reqs.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-
-</div>
-</div>
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/deployment_options.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>This Quick Start provides one deployment option:</p>
 </div>
 <div class="ulist">
@@ -1121,9 +1151,10 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 </div>
 <div class="paragraph">
 <p>The Quick Start lets you configure the EKS cluster in which Calico will be installed, as discussed later in this guide.</p>
-</div>
-</div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1132,9 +1163,9 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <h2 id="_deployment_steps">Deployment steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/deploy_steps</em>.adoc</code></strong>_</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/deploy_steps.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
+<div id="preview_mode" class="openblock">
 <div class="content">
 <div class="paragraph">
 <p>=== Sign in to your AWS account</p>
@@ -1213,68 +1244,16 @@ You are responsible for the cost of the AWS services used while running this Qui
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We recommend keeping the default settings for the three parameters labled 'Quick Start S3 bucket name', 'Quick Start S3 bucket
-Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For additional details, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
+Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
+Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_calico_operator">Launch Calico Operator</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Calico for EKS</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Calico Enterprise CRDs</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
 <h3 id="_launch_calico_into_amazon_eks_quick_start">Launch Calico into Amazon EKS Quick Start</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configure Calico install</caption>
+<caption class="title">Table 1. Configure Calico install</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1283,7 +1262,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1291,7 +1270,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
 (<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
 </tr>
 <tr>
@@ -1303,7 +1282,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Calico Enterprise options</caption>
+<caption class="title">Table 2. Calico Enterprise options</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1312,7 +1291,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1320,13 +1299,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Image pull secret
 (<code>DockerConfigJSONBase64</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Base64 encoded Docker pull configuration for pulling Calico Enterprise images.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. AWS Quick Start configuration</caption>
+<caption class="title">Table 3. AWS Quick Start configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1335,7 +1314,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1362,7 +1341,59 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_calico_prometheus_items">Launch Calico Prometheus items</h3>
+<h3 id="_launch_calico_crds">Launch Calico CRDS</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Calico Enterprise CRDs</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
+(<code>KubeClusterName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Calico Enterprise CRDs</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
+(<code>KubeClusterName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_launch_calico_operator">Launch Calico Operator</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. Calico for EKS</caption>
 <colgroup>
@@ -1373,7 +1404,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1381,16 +1412,16 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
 (<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_calico_crds">Launch Calico CRDS</h3>
+<h3 id="_launch_calico_prometheus_items">Launch Calico Prometheus items</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Calico Enterprise CRDs</caption>
+<caption class="title">Table 7. Calico for EKS</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1399,7 +1430,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1407,7 +1438,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
 (<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
 </tr>
 </tbody>
@@ -1427,24 +1458,28 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Calico deployment is ready.</p>
 </li>
 <li>
-<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in Figure 2, to view the resources that were created.</p>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Calico outputs after successful deployment</a>, to view the created resources.</p>
 </li>
 </ol>
 </div>
 <div id="cfn_outputs" class="imageblock">
 <div class="content">
-<img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439">
+<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439"></a>
 </div>
 <div class="title">Figure 2. Calico outputs after successful deployment</div>
 </div>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/additional_info.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>== Test the deployment</p>
-</div>
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="sect1">
+<h2 id="_test_the_deployment">Test the deployment</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Once installed, you can verify that everything is working with the following command:</p>
 </div>
@@ -1456,9 +1491,11 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <div class="paragraph">
 <p>All rows should indicate a status of "Available", and no rows should show "Degraded".</p>
 </div>
-<div class="paragraph">
-<p>== Post deployment steps</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_post_deployment_steps">Post deployment steps</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>You&#8217;re now ready to use Calico! To begin using the software, follow this guide to <a href="https://docs.projectcalico.org/security/kubernetes-network-policy" target="_blank" rel="noopener">get started with Kubernetes network policy</a>.</p>
 </div>
@@ -1480,9 +1517,11 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>== Other useful information</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_other_useful_information">Other useful information</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Useful references for getting started with Calico:</p>
 </div>
@@ -1519,15 +1558,22 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </ul>
 </div>
 </div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/faq_troubleshooting.adoc</code></strong></em></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>== FAQ</p>
-</div>
+<table id="preview_mode" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
@@ -1562,7 +1608,10 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <p><strong>A.</strong> This quickstart currently installs Calico for policy only, with networking provided by the Amazon VPC CNI plugin.</p>
 </div>
 </div>
-</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1592,15 +1641,15 @@ and to share your customizations with others.</p>
 </div>
 <hr>
 <div class="paragraph">
-<p>© 2020, Amazon Web Services, Inc. or its affiliates, and Tigera. All rights reserved.</p>
+<p>© 2020, Amazon Web Services Inc., or its affiliates, and Tigera. All rights reserved.</p>
 </div>
 <div class="sect3">
 <h4 id="_notices">Notices</h4>
 <div class="paragraph">
-<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether express or implied. This document does not create any warranties, representations, contractual commitments, conditions or assurances from AWS, its affiliates, suppliers or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
+<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
 </div>
 <div class="paragraph">
-<p>The software included with this paper is licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the "license" file accompanying this file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
@@ -1608,7 +1657,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-02 15:03:52 UTC
+Last updated 2020-10-02 15:08:24 UTC
 </div>
 </div>
 </body>
