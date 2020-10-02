@@ -2,6 +2,6 @@
 
 This Quick Start provides one deployment option:
 
-* *Deploy Calico into an existing EKS cluster*. This option provisions Calico or Calico Enterprise in your existing AWS infrastructure.
+* *Deploy {partner-product-name} into an existing EKS cluster*. This option provisions {partner-product-name} or {partner-product-name} Enterprise in your existing AWS infrastructure.
 
-The Quick Start lets you configure the EKS cluster in which Calico will be installed, as discussed later in this guide.
+The Quick Start lets you configure the EKS cluster in which {partner-product-name} will be installed, as discussed later in this guide.

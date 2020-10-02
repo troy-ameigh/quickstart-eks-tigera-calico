@@ -1,5 +1,5 @@
 // Include details about the license and how they can sign up. If no license is required, clarify that. 
 
-Calico binaries are provided freely under the Apache 2.0 license.
+{partner-product-name} binaries are provided freely under the Apache 2.0 license.
 
-Calico Enterprise requires a full license provided by Tigera. Contact a Tigera sales representative to acquire an enterprise license.
+{partner-product-name} Enterprise requires a full license provided by Tigera. Contact a Tigera sales representative to acquire an enterprise license.
