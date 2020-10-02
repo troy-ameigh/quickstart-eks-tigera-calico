@@ -782,15 +782,7 @@ table p {
 <li><a href="#_technical_requirements">Technical requirements</a></li>
 </ul>
 </li>
-<li><a href="#_deployment_steps">Deployment steps</a>
-<ul class="sectlevel2">
-<li><a href="#_launch_calico_operator">Launch Calico Operator</a></li>
-<li><a href="#_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</a></li>
-<li><a href="#_launch_calico_into_amazon_eks_quick_start">Launch Calico into Amazon EKS Quick Start</a></li>
-<li><a href="#_launch_calico_prometheus_items">Launch Calico Prometheus items</a></li>
-<li><a href="#_launch_calico_crds">Launch Calico CRDS</a></li>
-</ul>
-</li>
+<li><a href="#_deployment_steps">Deployment steps</a></li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
 <li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
 <li><a href="#_github_repository">GitHub repository</a>
@@ -1219,199 +1211,6 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_launch_calico_operator">Launch Calico Operator</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Calico for EKS</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_launch_calico_enterprise_crds">Launch Calico Enterprise CRDS</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Calico Enterprise CRDs</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_launch_calico_into_amazon_eks_quick_start">Launch Calico into Amazon EKS Quick Start</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configure Calico install</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Product variant
-(<code>ProductVariant</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Calico</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to install Calico or Calico Enterprise.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Calico Enterprise options</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull secret
-(<code>DockerConfigJSONBase64</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base64 encoded Docker pull configuration for pulling Calico Enterprise images.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. AWS Quick Start configuration</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
-(<code>QSS3BucketName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. This string can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
-(<code>QSS3KeyPrefix</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-eks-tigera-calico/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), dots(.) and forward slash (/).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
-(<code>QSS3BucketRegion</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_launch_calico_prometheus_items">Launch Calico Prometheus items</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Calico for EKS</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_launch_calico_crds">Launch Calico CRDS</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Calico Enterprise CRDs</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EKS cluster name
-(<code>KubeClusterName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the EKS cluster in which to deploy Calico.</p></td>
-</tr>
-</tbody>
-</table>
 <div class="olist arabic">
 <ol class="arabic" start="5">
 <li>
@@ -1565,7 +1364,6 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
@@ -1608,7 +1406,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-02 15:03:52 UTC
+Last updated 2020-09-17 10:41:26 -0700
 </div>
 </div>
 </body>

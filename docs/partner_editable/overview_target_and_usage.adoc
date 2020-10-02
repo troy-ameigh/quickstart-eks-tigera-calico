@@ -1,7 +1,3 @@
-// Replace the content in <>
-// Identify your target audience and explain how/why they would use this Quick Start.
-//Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
+This Quick Start reference deployment guide provides step-by-step instructions for deploying Tigera {partner-product-name} and Tigera {partner-product-name} Enterprise on the AWS Cloud.
 
-This Quick Start reference deployment guide provides step-by-step instructions for deploying {partner-product-name} on the AWS Cloud.
-
-This Quick Start is for users who <target audience and usage scenario>
+This Quick Start is for users who want to use {partner-product-name} to provide network policy enforcement capabilities on their Amazon EKS Kubernetes clusters, and for users who want to use {partner-product-name} Enterprise for enterprise-grade security and compliance use-cases.
