@@ -174,4 +174,4 @@ Resources:
         spec:
           kubernetesProvider: EKS
           variant: !If [IsEnterprise, "TigeraSecureEnterprise", "Calico"]
-          imagePullSecrets: !If [IsEnterprise, [{\"name\": \"tigera-pull-secret\"}], []]
+          imagePullSecrets: !If [IsEnterprise, {\"name\": \"tigera-pull-secret\"}, [] ]

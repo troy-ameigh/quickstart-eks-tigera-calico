@@ -4,15 +4,20 @@ AWS Cloud.
 
 // Replace this example diagram with your own. Send us your source PowerPoint file. Be sure to follow our guidelines here : http://(we should include these points on our contributors giude)
 [#architecture1]
-.Quick Start architecture for _{partner-product-name}_ on AWS
-[link=images/architecture_diagram.png]
-image::../images/architecture_diagram.png[Architecture,width=648,height=439]
+.Quick Start architecture for _{partner-product-name}_ Community on AWS
+[link=images/calico.png]
+image::../images/calico.png[Architecture,width=648,height=439]
 
 As shown in Figure 1, the Quick Start sets up the following in your Kubernetes cluster:
 
 * The Tigera Operator and associated resources in its own namespace.
 * A custom resource which configures the {partner-product-name} installation.
 * {partner-product-name} resources in the `calico-system` namespace.
+
+[#architecture2]
+.Quick Start architecture for _{partner-product-name}_ Enterprise on AWS
+[link=images/calico-enterprise.png]
+image::../images/calico-enterprise.png[Architecture,width=648,height=439]
 
 Figure 2 shows additional resources created for {partner-product-name} Enterprise:
 
