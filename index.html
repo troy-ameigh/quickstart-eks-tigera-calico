@@ -840,7 +840,7 @@ a img {
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph text-center">
 <p><strong>September, 2020</strong><br>
 <em>Casey Davenport - Tigera</em><br>
-<em></em></p>
+<em>Troy Ameigh Partner Solutions Architect - AWS Quick Start Team</em></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -996,9 +996,9 @@ AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<a class="image" href="images/architecture_diagram.png"><img src="images/architecture_diagram.png" alt="Architecture" width="648" height="439"></a>
+<a class="image" href="images/calico.png"><img src="images/calico.png" alt="Architecture" width="648" height="439"></a>
 </div>
-<div class="title">Figure 1. Quick Start architecture for <em>Calico</em> on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for <em>Calico</em> Community on AWS</div>
 </div>
 <div class="paragraph">
 <p>As shown in Figure 1, the Quick Start sets up the following in your Kubernetes cluster:</p>
@@ -1015,6 +1015,12 @@ AWS Cloud.</p>
 <p>Calico resources in the <code>calico-system</code> namespace.</p>
 </li>
 </ul>
+</div>
+<div id="architecture2" class="imageblock">
+<div class="content">
+<a class="image" href="images/calico-enterprise.png"><img src="images/calico-enterprise.png" alt="Architecture" width="648" height="439"></a>
+</div>
+<div class="title">Figure 2. Quick Start architecture for <em>Calico</em> Enterprise on AWS</div>
 </div>
 <div class="paragraph">
 <p>Figure 2 shows additional resources created for Calico Enterprise:</p>
@@ -1084,6 +1090,52 @@ Cloud.</p>
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/service_limits.adoc</code></strong></em></p>
 </div>
 <div id="preview_mode">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Default quota</th>
+<th class="tableblock halign-left valign-top">This deployment uses (default configuration)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPCs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 per AWS Region</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPC security groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300 per account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,000 per account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auto Scaling groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200 per Region</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t2.medium instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 per Region</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t2.micro instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20 per Region</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -1208,7 +1260,7 @@ You are responsible for the cost of the AWS services used while running this Qui
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Calico into an existing VPC on AWS</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://fwd.aws/FIXME">Enable EKS based Quick Starts on an existing EKS cluster</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1466,7 +1518,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <div class="content">
 <a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439"></a>
 </div>
-<div class="title">Figure 2. Calico outputs after successful deployment</div>
+<div class="title">Figure 3. Calico outputs after successful deployment</div>
 </div>
 <div class="paragraph">
 <p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/additional_info.adoc</code></strong></em></p>
@@ -1657,7 +1709,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-02 15:08:24 UTC
+Last updated 2020-10-05 14:45:35 UTC
 </div>
 </div>
 </body>

@@ -4,7 +4,7 @@
 :doc-month: September
 :doc-year: 2020
 :partner-contributors: Casey Davenport - {partner-company-name}
-:quickstart-contributors: 
+:quickstart-contributors: Troy Ameigh Partner Solutions Architect - AWS Quick Start Team
 :deployment_time: 5 - 30 minutes
 :default_deployment_region: us-east-1
 // Uncomment these two attributes if you are leveraging
