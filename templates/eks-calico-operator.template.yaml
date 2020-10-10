@@ -2888,7 +2888,7 @@ Resources:
               dnsPolicy: ClusterFirstWithHostNet
               containers:
                 - name: tigera-operator
-                  image: quay.io/tigera/operator:v1.10.2
+                  image: quay.io/tigera/operator:v1.10.5
                   imagePullPolicy: IfNotPresent
                   command:
                     - operator
@@ -2902,4 +2902,4 @@ Resources:
                     - name: OPERATOR_NAME
                       value: "tigera-operator"
                     - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
-                      value: v1.10.2
+                      value: v1.10.5
