@@ -1,5 +1,6 @@
 :quickstart-project-name: quickstart-documentation-base
-:partner-product-name: Calico
+:partner-product-name: Calico for Amazon EKS
+:custom_title:
 :partner-company-name: Tigera
 :doc-month: September
 :doc-year: 2020
@@ -7,6 +8,8 @@
 :quickstart-contributors: Troy Ameigh Partner Solutions Architect - AWS Quick Start Team
 :deployment_time: 5 - 30 minutes
 :default_deployment_region: us-east-1
+:eks_addin:
+:disable_regions:
 // Uncomment these two attributes if you are leveraging
 // - an AWS Marketplace listing.
 // Additional content will be auto-generated based on these attributes.
