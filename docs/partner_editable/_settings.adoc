@@ -1,11 +1,10 @@
 :quickstart-project-name: quickstart-eks-tigera-calico
-:partner-product-name: Calico for Amazon EKS
-:custom_title:
+:partner-product-name: Calico
 :partner-company-name: Tigera
-:doc-month: September
+:doc-month: November
 :doc-year: 2020
 :partner-contributors: Casey Davenport - {partner-company-name}
-:quickstart-contributors: Troy Ameigh Partner Solutions Architect - AWS Quick Start Team
+:quickstart-contributors: Troy Ameigh, Partner Solutions Architect - AWS Quick Start Team
 :deployment_time: 5 - 30 minutes
 :default_deployment_region: us-east-1
 :eks_addin:
@@ -15,3 +14,11 @@
 // Additional content will be auto-generated based on these attributes.
 // :marketplace_subscription:
 // :marketplace_listing_url: https://example.com/
+
+//links
+:launch_new_vpc: https://fwd.aws/6MkEA
+:launch_existing_vpc: https://fwd.aws/Ewmdr
+:launch_existing_cluster: https://fwd.aws/ENbVj
+:template_new_vpc: https://fwd.aws/DgqPB
+:template_existing_vpc: https://fwd.aws/mbD5g
+:template_existing_cluster: https://fwd.aws/znAVA
