@@ -142,7 +142,8 @@ Resources:
           namespace: tigera-operator
         type: kubernetes.io/dockerconfigjson
         data:
-          .dockerconfigjson: !Ref DockerConfigJSONBase64
+          .dockerconfigjson:
+             Fn::Base64: !Ref DockerConfigJSONBase64
 
   # If using Calico Enterprise, installs the Calico Enterprise API server.
   DefaultAPIServer:
