@@ -14,3 +14,10 @@
 // Additional content will be auto-generated based on these attributes.
 // :marketplace_subscription:
 // :marketplace_listing_url: https://example.com/
+//links
+:launch_new_vpc: https://fwd.aws/6MkEA
+:launch_existing_vpc: https://fwd.aws/Ewmdr
+:launch_existing_cluster: https://fwd.aws/ENbVj
+:template_new_vpc: https://fwd.aws/DgqPB
+:template_existing_vpc: https://fwd.aws/mbD5g
+:template_existing_cluster: https://fwd.aws/znAVA
