@@ -9,7 +9,14 @@ Once installed, you can verify that everything is working with the following com
 kubectl get tigerastatus
 ```
 
-All rows should indicate a status of "Available", and no rows should show "Degraded".
+All rows should indicate a status of "Available", and no rows should show "Degraded" or "Progressing".
+
+For example:
+
+```
+NAME     AVAILABLE   PROGRESSING   DEGRADED   SINCE
+calico   True        False         False      1m16s
+```
 
 == Post deployment steps
 
