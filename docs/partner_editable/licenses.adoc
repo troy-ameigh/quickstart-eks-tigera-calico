@@ -1,5 +1,3 @@
 // Include details about the license and how they can sign up. If no license is required, clarify that. 
 
 {partner-product-name} binaries are provided freely under the Apache 2.0 license.
-
-{partner-product-name} Enterprise requires a full license provided by Tigera. To contact a Tigera sales representative about acquiring an enterprise license, use the information at this https://www.tigera.io/partners/aws/[link^].
