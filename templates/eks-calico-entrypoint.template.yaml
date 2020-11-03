@@ -19,8 +19,6 @@ Metadata:
     ParameterLabels:
       KubeClusterName:
         default: EKS cluster name
-      DockerConfigJSONBase64:
-        default: Image pull secret
       QSS3BucketName:
         default: Quick Start S3 bucket name
       QSS3KeyPrefix:
