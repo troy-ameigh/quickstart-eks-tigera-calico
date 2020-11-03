@@ -13,12 +13,3 @@ As shown in Figure 1, the Quick Start sets up the following in your Kubernetes c
 * The Tigera Operator and associated resources in its own namespace.
 * A custom resource which configures the {partner-product-name} installation.
 * {partner-product-name} resources in the `calico-system` namespace.
-
-[#architecture2]
-.Quick Start architecture for _{partner-product-name}_ Enterprise on AWS
-[link=images/calico-enterprise.png]
-image::../images/calico-enterprise.png[Architecture,width=648,height=439]
-
-Figure 2 shows additional resources created for {partner-product-name} Enterprise:
-
-* The `tigera-system` namespace, which runs the Tigera API server.

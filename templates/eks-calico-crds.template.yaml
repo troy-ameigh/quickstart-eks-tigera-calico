@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Calico Enterprise Custom Resource Definitions (qs-1r6eslpkt)
+Description: Calico Custom Resource Definitions (qs-1r6eslpkt)
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch Calico CRDS"
@@ -7,7 +7,7 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: Calico Enterprise CRDs
+          default: Calico CRDs
         Parameters:
           - KubeClusterName
     ParameterLabels:
@@ -19,9 +19,6 @@ Parameters:
     Description: Name of the EKS cluster in which to deploy Calico.
 
 Resources:
-  #####################################################################################
-  # Shared CRDs for Calico and Enterprise, with modifications for enterprise.
-  #####################################################################################
   BGPConfigurationCRD:
     Type: "Custom::KubeManifest"
     Properties:
@@ -31,8 +28,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: bgpconfigurations.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -88,12 +83,6 @@ Resources:
                               type: string
                           type: object
                         type: array
-                      extensions:
-                        additionalProperties:
-                          type: string
-                        description: Extensions is a mapping of keys to values that can be
-                          used in custom BGP templates
-                        type: object
                       listenPort:
                         description: ListenPort is the port where BGP protocol should listen.
                           Defaults to 179
@@ -136,8 +125,8 @@ Resources:
                           cluster IPs are allocated. If specified, Calico will advertise these
                           blocks, as well as any cluster IPs within them.
                         items:
-                          description: ServiceClusterIPBlock represents a single whitelisted
-                            CIDR block for ClusterIPs.
+                          description: ServiceClusterIPBlock represents a single allowed ClusterIP
+                            CIDR block.
                           properties:
                             cidr:
                               type: string
@@ -148,8 +137,8 @@ Resources:
                           Service External IPs. Kubernetes Service ExternalIPs will only be
                           advertised if they are within one of these blocks.
                         items:
-                          description: ServiceExternalIPBlock represents a single whitelisted
-                            CIDR External IP block.
+                          description: ServiceExternalIPBlock represents a single allowed
+                            External IP CIDR block.
                           properties:
                             cidr:
                               type: string
@@ -159,12 +148,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   BGPPeerCRD:
     Type: "Custom::KubeManifest"
@@ -175,8 +158,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: bgppeers.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -210,32 +191,12 @@ Resources:
                         description: The AS Number of the peer.
                         format: int32
                         type: integer
-                      birdGatewayMode:
-                        description: Specifies the BIRD "gateway" mode, i.e. method for computing
-                          the immediate next hop for each received route, for peerings generated
-                          by this BGPPeer resource.  Default value "Recursive" means "gateway
-                          recursive".  "DirectIfDirectlyConnected" means to configure "gateway
-                          direct" when the peer is directly connected.
-                        type: string
-                      extensions:
-                        additionalProperties:
-                          type: string
-                        description: Extensions is a mapping of keys to values that can be
-                          used in custom BGP templates
-                        type: object
-                      failureDetectionMode:
-                        description: Specifies whether and how to detect loss of connectivity
-                          on the peerings generated by this BGPPeer resource.  Default value
-                          "None" means nothing beyond BGP's own (slow) hold timer.  "BFDIfDirectlyConnected"
-                          means to use BFD when the peer is directly connected.
-                        type: string
-                      maxRestartTime:
-                        description: Time to allow for software restart.  When specified,
-                          this is configured as the graceful restart timeout when RestartMode
-                          is "GracefulRestart", and as the LLGR stale time when RestartMode
-                          is "LongLivedGracefulRestart".  When not specified, the BIRD defaults
-                          are used, which are 120s for "GracefulRestart" and 3600s for "LongLivedGracefulRestart".
-                        type: string
+                      keepOriginalNextHop:
+                        description: Option to keep the original nexthop field when routes
+                          are sent to a BGP Peer. Setting "true" configures the selected BGP
+                          Peers node to use the "next hop keep;" instead of "next hop self;"(default)
+                          in the specific branch of the Node on "bird.cfg".
+                        type: boolean
                       node:
                         description: The node name identifying the Calico node instance that
                           is peering with this peer. If this is not set, this represents a
@@ -284,18 +245,6 @@ Resources:
                           remote AS number comes from the remote node’s NodeBGPSpec.ASNumber,
                           or the global default if that is not set.
                         type: string
-                      restartMode:
-                        description: Specifies restart behaviour to configure on the peerings
-                          generated by this BGPPeer resource.  Default value "GracefulRestart"
-                          means traditional graceful restart. "LongLivedGracefulRestart" means
-                          LLGR according to draft-uttaro-idr-bgp-persistence-05.
-                        type: string
-                      sourceAddress:
-                        description: Specifies whether and how to configure a source address
-                          for the peerings generated by this BGPPeer resource.  Default value
-                          "UseNodeIP" means to configure the node IP as the source address.  "None"
-                          means not to configure a source address.
-                        type: string
                     required:
                     - asNumber
                     - peerIP
@@ -303,12 +252,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   BlockAffinitiesCRD:
     Type: "Custom::KubeManifest"
@@ -319,8 +262,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: blockaffinities.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -371,12 +312,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   ClusterInformationCRD:
     Type: "Custom::KubeManifest"
@@ -387,8 +322,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: clusterinformations.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -430,10 +363,6 @@ Resources:
                       clusterType:
                         description: ClusterType describes the type of the cluster
                         type: string
-                      cnxVersion:
-                        description: CNXVersion is the version of CNX that the cluster is
-                          running
-                        type: string
                       datastoreReady:
                         description: DatastoreReady is used during significant datastore migrations
                           to signal to components such as Felix that it should wait before
@@ -446,12 +375,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   FelixConfigurationCRD:
     Type: "Custom::KubeManifest"
@@ -462,8 +385,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: felixconfigurations.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -494,6 +415,16 @@ Resources:
                   spec:
                     description: FelixConfigurationSpec contains the values of the Felix configuration.
                     properties:
+                      allowIPIPPacketsFromWorkloads:
+                        description: 'AllowIPIPPacketsFromWorkloads controls whether Felix
+                          will add a rule to drop IPIP encapsulated traffic from workloads
+                          [Default: false]'
+                        type: boolean
+                      allowVXLANPacketsFromWorkloads:
+                        description: 'AllowVXLANPacketsFromWorkloads controls whether Felix
+                          will add a rule to drop VXLAN encapsulated traffic from workloads
+                          [Default: false]'
+                        type: boolean
                       awsSrcDstCheck:
                         description: 'Set source-destination-check on AWS EC2 instances. Accepted
                           value must be one of "DoNothing", "Enabled" or "Disabled". [Default:
@@ -571,76 +502,6 @@ Resources:
                           acceptance by falling through to the Calico rules, otherwise the
                           Calico policy will be bypassed. [Default: insert]'
                         type: string
-                      cloudWatchLogsAggregationKindForAllowed:
-                        description: 'CloudWatchLogsAggregationKindForAllowed is used to choose
-                          the type of aggregation for flow log entries created for allowed
-                          connections. [Default: 2 - pod prefix name based aggregation]. Accepted
-                          values are 0, 1 and 2. 0 - No aggregation 1 - Source port based
-                          aggregation 2 - Pod prefix name based aggreagation.'
-                        type: integer
-                      cloudWatchLogsAggregationKindForDenied:
-                        description: 'CloudWatchLogsAggregationKindForDenied is used to choose
-                          the type of aggregation for flow log entries created for denied
-                          connections. [Default: 1 - source port based aggregation]. Accepted
-                          values are 0, 1 and 2. 0 - No aggregation 1 - Source port based
-                          aggregation 2 - Pod prefix name based aggreagation.'
-                        type: integer
-                      cloudWatchLogsEnableHostEndpoint:
-                        description: 'Deprecated: Use FlowLogsEnableHostEndpoint.'
-                        type: boolean
-                      cloudWatchLogsEnabledForAllowed:
-                        description: CloudWatchLogsEnabledForAllowed is used to enable/disable
-                          flow logs entries created for allowed connections. Default is true.
-                          This parameter only takes effect when CloudWatchLogsReporterEnabled
-                          is set to true.
-                        type: boolean
-                      cloudWatchLogsEnabledForDenied:
-                        description: CloudWatchLogsEnabledForDenied is used to enable/disable
-                          flow logs entries created for denied flows. Default is true. This
-                          parameter only takes effect when CloudWatchLogsReporterEnabled is
-                          set to true.
-                        type: boolean
-                      cloudWatchLogsFlushInterval:
-                        description: 'Deprecated: Use FlowLogsFlushInterval instead.'
-                        type: string
-                      cloudWatchLogsIncludeLabels:
-                        description: CloudWatchLogsIncludeLabels is used to configure if endpoint
-                          labels are included in a Flow log entry.
-                        type: boolean
-                      cloudWatchLogsIncludePolicies:
-                        description: CloudWatchLogsIncludePolicies is used to configure if
-                          policy information are included in a Flow log entry.
-                        type: boolean
-                      cloudWatchLogsLogGroupName:
-                        description: CloudWatchLogsLogGroupName configures the Log group to
-                          use for exporting flow logs. Defaults to "tigera-flowlogs-<cluster-guid>".
-                        type: string
-                      cloudWatchLogsLogStreamName:
-                        description: CloudWatchLogsLogStreamName configures the Log stream
-                          to use for exporting flow logs. Defaults to "<felix-hostname>_Flowlogs".
-                        type: string
-                      cloudWatchLogsReporterEnabled:
-                        description: Enable Flow logs reporting to AWS CloudWatch.
-                        type: boolean
-                      cloudWatchLogsRetentionDays:
-                        description: Number of days for which to retain logs. See https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutRetentionPolicy.html
-                          for allowed values.
-                        type: integer
-                      cloudWatchMetricsPushIntervalSecs:
-                        description: CloudWatchMetricsPushInterval configures the interval
-                          at which Felix exports metrics to CloudWatch.
-                        type: string
-                      cloudWatchMetricsReporterEnabled:
-                        description: Enable reporting metrics to CloudWatch.
-                        type: boolean
-                      cloudWatchNodeHealthPushIntervalSecs:
-                        description: CloudWatchNodeHealthPushIntervalSecs configures the frequency
-                          of pushing the node health metrics to CloudWatch.
-                        type: string
-                      cloudWatchNodeHealthStatusEnabled:
-                        description: CloudWatchNodeHealthStatusEnabled enables pushing node
-                          health data to CloudWatch.
-                        type: boolean
                       dataplaneDriver:
                         type: string
                       debugDisableLogDropping:
@@ -665,8 +526,6 @@ Resources:
                           from workloads after processing workload endpoint egress policy.
                           [Default: Drop]'
                         type: string
-                      deletedMetricsRetentionSecs:
-                        type: integer
                       deviceRouteProtocol:
                         description: This defines the route protocol added to programmed device
                           routes, by default this will be RTPROT_BOOT when left blank.
@@ -678,92 +537,6 @@ Resources:
                         type: string
                       disableConntrackInvalidCheck:
                         type: boolean
-                      dnsCacheFile:
-                        description: 'The name of the file that Felix uses to preserve learnt
-                          DNS information when restarting. [Default: "/var/run/calico/felix-dns-cache.txt"].'
-                        type: string
-                      dnsCacheSaveInterval:
-                        description: 'The periodic interval at which Felix saves learnt DNS
-                          information to the cache file. [Default: 60s].'
-                        type: string
-                      dnsLogsFileAggregationKind:
-                        description: 'DNSLogsFileAggregationKind is used to choose the type
-                          of aggregation for DNS log entries. [Default: 1 - client name prefix
-                          aggregation]. Accepted values are 0 and 1. 0 - No aggregation 1
-                          - Aggregate over clients with the same name prefix'
-                        type: integer
-                      dnsLogsFileDirectory:
-                        description: 'DNSLogsFileDirectory sets the directory where DNS log
-                          files are stored. [Default: /var/log/calico/dnslogs]'
-                        type: string
-                      dnsLogsFileEnabled:
-                        description: 'DNSLogsFileEnabled controls logging DNS logs to a file.
-                          If false no DNS logging to file will occur. [Default: false]'
-                        type: boolean
-                      dnsLogsFileIncludeLabels:
-                        description: 'DNSLogsFileIncludeLabels is used to configure if endpoint
-                          labels are included in a DNS log entry written to file. [Default:
-                          true]'
-                        type: boolean
-                      dnsLogsFileMaxFileSizeMB:
-                        description: 'DNSLogsFileMaxFileSizeMB sets the max size in MB of
-                          DNS log files before rotation. [Default: 100]'
-                        type: integer
-                      dnsLogsFileMaxFiles:
-                        description: 'DNSLogsFileMaxFiles sets the number of DNS log files
-                          to keep. [Default: 5]'
-                        type: integer
-                      dnsLogsFilePerNodeLimit:
-                        description: 'Limit on the number of DNS logs that can be emitted
-                          within each flush interval.  When this limit has been reached, Felix
-                          counts the number of unloggable DNS responses within the flush interval,
-                          and emits a WARNING log with that count at the same time as it flushes
-                          the buffered DNS logs.  [Default: 0, meaning no limit]'
-                        type: integer
-                      dnsLogsFlushInterval:
-                        description: 'DNSLogsFlushInterval configures the interval at which
-                          Felix exports DNS logs. [Default: 300s]'
-                        type: string
-                      dnsTrustedServers:
-                        description: 'The DNS servers that Felix should trust. Each entry
-                          here must be `<ip>[:<port>]` - indicating an explicit DNS server
-                          IP - or `k8s-service:[<namespace>/]<name>[:port]` - indicating a
-                          Kubernetes DNS service. `<port>` defaults to the first service port,
-                          or 53 for an IP, and `<namespace>` to `kube-system`. An IPv6 address
-                          with a port must use the square brackets convention, for example
-                          `[fd00:83a6::12]:5353`.Note that Felix (calico-node) will need RBAC
-                          permission to read the details of each service specified by a `k8s-service:...`
-                          form. [Default: "k8s-service:kube-dns"].'
-                        items:
-                          type: string
-                        type: array
-                      dropActionOverride:
-                        description: 'DropActionOverride overrides the Drop action in Felix,
-                          optionally changing the behavior to Accept, and optionally adding
-                          Log. Possible values are Drop, LogAndDrop, Accept, LogAndAccept.
-                          [Default: Drop]'
-                        type: string
-                      egressIPRoutingRulePriority:
-                        description: 'EgressIPRoutingRulePriority controls the priority value
-                          to use for the egress IP routing rule. [Default: 100]'
-                        type: integer
-                      egressIPSupport:
-                        description: 'EgressIPSupport defines three different support modes
-                          for egress IP function. [Default: Disabled] - Disabled:                    Egress
-                          IP function is disabled. - EnabledPerNamespace:         Egress IP
-                          function is enabled and can be configured on a per-namespace basis;                                per-pod
-                          egress annotations are ignored. - EnabledPerNamespaceOrPerPod: Egress
-                          IP function is enabled and can be configured per-namespace or per-pod,                                with
-                          per-pod egress annotations overriding namespace annotations.'
-                        type: string
-                      egressIPVXLANPort:
-                        description: 'EgressIPVXLANPort is the port number of vxlan tunnel
-                          device for egress traffic. [Default: 4790]'
-                        type: integer
-                      egressIPVXLANVNI:
-                        description: 'EgressIPVXLANVNI is the VNI ID of vxlan tunnel device
-                          for egress traffic. [Default: 4097]'
-                        type: integer
                       endpointReportingDelay:
                         type: string
                       endpointReportingEnabled:
@@ -823,89 +596,12 @@ Resources:
                           - protocol
                           type: object
                         type: array
-                      flowLogsAggregationThresholdBytes:
-                        description: FlowLogsAggregationThresholdBytes is used specify how
-                          far behind the external pipeline that reads flow logs can be. Default
-                          is 8192 bytes. This parameter only takes effect when FlowLogsDynamicAggregationEnabled
-                          is set to true.
-                        type: integer
-                      flowLogsDynamicAggregationEnabled:
-                        description: FlowLogsDynamicAggregationEnabled is used to enable/disable
-                          dynamically changing aggregation levels. Default is true.
-                        type: boolean
-                      flowLogsEnableHostEndpoint:
-                        description: FlowLogsEnableHostEndpoint enables Flow logs reporting
-                          for HostEndpoints.
-                        type: boolean
-                      flowLogsEnableNetworkSets:
-                        description: FlowLogsEnableNetworkSets enables Flow logs reporting
-                          for GlobalNetworkSets.
-                        type: boolean
-                      flowLogsFileAggregationKindForAllowed:
-                        description: 'FlowLogsFileAggregationKindForAllowed is used to choose
-                          the type of aggregation for flow log entries created for allowed
-                          connections. [Default: 2 - pod prefix name based aggregation]. Accepted
-                          values are 0, 1 and 2. 0 - No aggregation 1 - Source port based
-                          aggregation 2 - Pod prefix name based aggreagation.'
-                        type: integer
-                      flowLogsFileAggregationKindForDenied:
-                        description: 'FlowLogsFileAggregationKindForDenied is used to choose
-                          the type of aggregation for flow log entries created for denied
-                          connections. [Default: 1 - source port based aggregation]. Accepted
-                          values are 0, 1 and 2. 0 - No aggregation 1 - Source port based
-                          aggregation 2 - Pod prefix name based aggregation. 3 - No destination
-                          ports based aggregation'
-                        type: integer
-                      flowLogsFileDirectory:
-                        description: FlowLogsFileDirectory sets the directory where flow logs
-                          files are stored.
-                        type: string
-                      flowLogsFileEnabled:
-                        description: FlowLogsFileEnabled when set to true, enables logging
-                          flow logs to a file. If false no flow logging to file will occur.
-                        type: boolean
-                      flowLogsFileEnabledForAllowed:
-                        description: FlowLogsFileEnabledForAllowed is used to enable/disable
-                          flow logs entries created for allowed connections. Default is true.
-                          This parameter only takes effect when FlowLogsFileReporterEnabled
-                          is set to true.
-                        type: boolean
-                      flowLogsFileEnabledForDenied:
-                        description: FlowLogsFileEnabledForDenied is used to enable/disable
-                          flow logs entries created for denied flows. Default is true. This
-                          parameter only takes effect when FlowLogsFileReporterEnabled is
-                          set to true.
-                        type: boolean
-                      flowLogsFileIncludeLabels:
-                        description: FlowLogsFileIncludeLabels is used to configure if endpoint
-                          labels are included in a Flow log entry written to file.
-                        type: boolean
-                      flowLogsFileIncludePolicies:
-                        description: FlowLogsFileIncludePolicies is used to configure if policy
-                          information are included in a Flow log entry written to file.
-                        type: boolean
-                      flowLogsFileMaxFileSizeMB:
-                        description: FlowLogsFileMaxFileSizeMB sets the max size in MB of
-                          flow logs files before rotation.
-                        type: integer
-                      flowLogsFileMaxFiles:
-                        description: FlowLogsFileMaxFiles sets the number of log files to
-                          keep.
-                        type: integer
-                      flowLogsFlushInterval:
-                        description: FlowLogsFlushInterval configures the interval at which
-                          Felix exports flow logs.
-                        type: string
-                      flowLogsMaxOriginalIPsIncluded:
-                        description: FlowLogsMaxOriginalIPsIncluded specifies the number of
-                          unique IP addresses (if relevant) that should be included in Flow
-                          logs.
-                        type: integer
-                      flowLogsPositionFilePath:
-                        description: FlowLogsPositionFilePath is used specify the position
-                          of the external pipeline that reads flow logs. Default is /var/log/calico/flows.log.pos.
-                          This parameter only takes effect when FlowLogsDynamicAggregationEnabled
-                          is set to true.
+                      featureDetectOverride:
+                        description: FeatureDetectOverride is used to override the feature
+                          detection. Values are specified in a comma separated list with no
+                          spaces, example; "SNATFullyRandom=true,MASQFullyRandom=false,RestoreSupportsLock=".
+                          "true" or "false" will force the feature, empty or omitted values
+                          are auto-detected.
                         type: string
                       genericXDPEnabled:
                         description: 'GenericXDPEnabled enables Generic XDP so network cards
@@ -938,40 +634,17 @@ Resources:
                           integrations set the ‘cali’ value, and our OpenStack integration
                           sets the ‘tap’ value. [Default: cali]'
                         type: string
+                      interfaceRefreshInterval:
+                        description: InterfaceRefreshInterval is the period at which Felix
+                          rescans local interfaces to verify their state. The rescan can be
+                          disabled by setting the interval to 0.
+                        type: string
                       ipipEnabled:
                         type: boolean
                       ipipMTU:
                         description: 'IPIPMTU is the MTU to set on the tunnel device. See
                           Configuring MTU [Default: 1440]'
                         type: integer
-                      ipsecAllowUnsecuredTraffic:
-                        description: 'IPSecAllowUnsecuredTraffic controls whether non-IPsec
-                          traffic is allowed in addition to IPsec traffic. Enabling this negates
-                          the anti-spoofing protections of IPsec but it is useful when migrating
-                          to/from IPsec. [Default: false]'
-                        type: boolean
-                      ipsecESPAlgorithm:
-                        description: 'IPSecESAlgorithm sets IPSec ESP algorithm. Default is
-                          NIST suite B recommendation. [Default: aes128gcm16-ecp256]'
-                        type: string
-                      ipsecIKEAlgorithm:
-                        description: 'IPSecIKEAlgorithm sets IPSec IKE algorithm. Default
-                          is NIST suite B recommendation. [Default: aes128gcm16-prfsha256-ecp256]'
-                        type: string
-                      ipsecLogLevel:
-                        description: 'IPSecLogLevel controls log level for IPSec components.
-                          Set to None for no logging. A generic log level terminology is used
-                          [None, Notice, Info, Debug, Verbose]. [Default: Info]'
-                        type: string
-                      ipsecMode:
-                        description: 'IPSecMode controls which mode IPSec is operating on.
-                          Default value means IPSec is not enabled. [Default: ""]'
-                        type: string
-                      ipsecPolicyRefreshInterval:
-                        description: 'IPSecPolicyRefreshInterval is the interval at which
-                          Felix will check the kernel''s IPsec policy tables and repair any
-                          inconsistencies. [Default: 600s]'
-                        type: string
                       ipsetsRefreshInterval:
                         description: 'IpsetsRefreshInterval is the period at which Felix re-checks
                           all iptables state to ensure that no other process has accidentally
@@ -1046,10 +719,6 @@ Resources:
                           pattern: ^.*
                           x-kubernetes-int-or-string: true
                         type: array
-                      logDropActionOverride:
-                        description: LogDropActionOverride specifies whether or not to include
-                          the DropActionOverride in the logs when it is triggered.
-                        type: boolean
                       logFilePath:
                         description: 'LogFilePath is the full path to the Felix log. Set to
                           none to disable file logging. [Default: /var/log/calico/felix.log]'
@@ -1104,8 +773,6 @@ Resources:
                         x-kubernetes-int-or-string: true
                       netlinkTimeout:
                         type: string
-                      nfNetlinkBufSize:
-                        type: string
                       openstackRegion:
                         description: 'OpenstackRegion is the name of the region that a particular
                           Felix belongs to. In a multi-region Calico/OpenStack deployment,
@@ -1125,11 +792,6 @@ Resources:
                           to false. This reduces the number of metrics reported, reducing
                           Prometheus load. [Default: true]'
                         type: boolean
-                      prometheusMetricsCAFile:
-                        type: string
-                      prometheusMetricsCertFile:
-                        description: TLS credentials for this port.
-                        type: string
                       prometheusMetricsEnabled:
                         description: 'PrometheusMetricsEnabled enables the Prometheus metrics
                           server in Felix if set to true. [Default: false]'
@@ -1137,8 +799,6 @@ Resources:
                       prometheusMetricsHost:
                         description: 'PrometheusMetricsHost is the host that the Prometheus
                           metrics server should bind to. [Default: empty]'
-                        type: string
-                      prometheusMetricsKeyFile:
                         type: string
                       prometheusMetricsPort:
                         description: 'PrometheusMetricsPort is the TCP port that the Prometheus
@@ -1150,17 +810,6 @@ Resources:
                           to false. This reduces the number of metrics reported, reducing
                           Prometheus load. [Default: true]'
                         type: boolean
-                      prometheusReporterCAFile:
-                        type: string
-                      prometheusReporterCertFile:
-                        type: string
-                      prometheusReporterEnabled:
-                        description: Felix Denied Packet Metrics configuration parameters.
-                        type: boolean
-                      prometheusReporterKeyFile:
-                        type: string
-                      prometheusReporterPort:
-                        type: integer
                       removeExternalRoutes:
                         description: Whether or not to remove device routes that have not
                           been programmed by Felix. Disabling this will allow external applications
@@ -1204,12 +853,6 @@ Resources:
                         description: 'SidecarAccelerationEnabled enables experimental sidecar
                           acceleration [Default: false]'
                         type: boolean
-                      statsDumpFilePath:
-                        type: string
-                      syslogReporterAddress:
-                        type: string
-                      syslogReporterNetwork:
-                        type: string
                       usageReportingEnabled:
                         description: 'UsageReportingEnabled reports anonymous Calico version
                           number and cluster size to projectcalico.org. Logs warnings returned
@@ -1237,11 +880,6 @@ Resources:
                         type: integer
                       vxlanVNI:
                         type: integer
-                      windowsNetworkName:
-                        description: 'WindowsNetworkName specifies which Windows HNS networks
-                          Felix should operate on.  The default is to match networks that
-                          start with "calico".  Supports regular expression syntax.'
-                        type: string
                       wireguardEnabled:
                         description: 'WireguardEnabled controls whether Wireguard is enabled.
                           [Default: false]'
@@ -1276,12 +914,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   GlobalNetworkPolicyCRD:
     Type: "Custom::KubeManifest"
@@ -1292,8 +924,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: globalnetworkpolicies.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -1352,15 +982,6 @@ Resources:
                               description: Destination contains the match criteria that apply
                                 to destination entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -1566,15 +1187,6 @@ Resources:
                               description: Source contains the match criteria that apply to
                                 source entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -1701,15 +1313,6 @@ Resources:
                               description: Destination contains the match criteria that apply
                                 to destination entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -1915,15 +1518,6 @@ Resources:
                               description: Source contains the match criteria that apply to
                                 source entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -2038,10 +1632,10 @@ Resources:
                       order:
                         description: Order is an optional field that specifies the order in
                           which the policy is applied. Policies with higher "order" are applied
-                          after those with lower order within the same tier.  If the order
-                          is omitted, it may be considered to be "infinite" - i.e. the policy
-                          will be applied last.  Policies with identical order will be applied
-                          in alphanumerical order based on the Policy "Name" within the tier.
+                          after those with lower order.  If the order is omitted, it may be
+                          considered to be "infinite" - i.e. the policy will be applied last.  Policies
+                          with identical order will be applied in alphanumerical order based
+                          on the Policy "Name".
                         type: number
                       preDNAT:
                         description: PreDNAT indicates to apply the rules in this policy before
@@ -2070,14 +1664,6 @@ Resources:
                         description: ServiceAccountSelector is an optional field for an expression
                           used to select a pod based on service accounts.
                         type: string
-                      tier:
-                        description: The name of the tier that this policy belongs to.  If
-                          this is omitted, the default tier (name is "default") is assumed.  The
-                          specified tier must exist in order to create security policies within
-                          the tier, the "default" tier is created automatically if it does
-                          not exist, this means for deployments requiring only a single Tier,
-                          the tier name may be omitted on all policy management requests.
-                        type: string
                       types:
                         description: "Types indicates whether this policy applies to ingress,
                           or to egress, or to both.  When not explicitly specified (and so
@@ -2098,12 +1684,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   GlobalNetworkSetCRD:
     Type: "Custom::KubeManifest"
@@ -2114,8 +1694,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: globalnetworksets.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2149,16 +1727,6 @@ Resources:
                     description: GlobalNetworkSetSpec contains the specification for a NetworkSet
                       resource.
                     properties:
-                      allowedEgressDomains:
-                        description: The list of domain names that belong to this set and
-                          are honored in egress allow rules only.  Domain names specified
-                          here only work to allow egress traffic from the cluster to external
-                          destinations.  They don't work to _deny_ traffic to destinations
-                          specified by domain name, or to allow ingress traffic from _sources_
-                          specified by domain name.
-                        items:
-                          type: string
-                        type: array
                       nets:
                         description: The list of IP networks that belong to this set.
                         items:
@@ -2168,12 +1736,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   HostEndpointCRD:
     Type: "Custom::KubeManifest"
@@ -2184,8 +1746,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: hostendpoints.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2283,12 +1843,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   IPAMBlockCRD:
     Type: "Custom::KubeManifest"
@@ -2299,8 +1853,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: ipamblocks.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2336,6 +1888,8 @@ Resources:
                       allocations:
                         items:
                           type: integer
+                          # TODO: This nullable is manually added in. We should update controller-gen
+                          # to handle []*int properly itself.
                           nullable: true
                         type: array
                       attributes:
@@ -2370,12 +1924,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   IPAMConfigCRD:
     Type: "Custom::KubeManifest"
@@ -2386,8 +1934,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: ipamconfigs.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2429,12 +1975,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   IPAMHandleCRD:
     Type: "Custom::KubeManifest"
@@ -2445,8 +1985,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: ipamhandles.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2490,12 +2028,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   IPPoolsCRD:
     Type: "Custom::KubeManifest"
@@ -2506,8 +2038,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: ippools.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2568,7 +2098,7 @@ Resources:
                         type: object
                       ipipMode:
                         description: Contains configuration for IPIP tunneling for this pool.
-                          If not specified, then this is defaulted to "Never" (i.e. IPIP tunelling
+                          If not specified, then this is defaulted to "Never" (i.e. IPIP tunneling
                           is disabled).
                         type: string
                       nat-outgoing:
@@ -2588,7 +2118,7 @@ Resources:
                       vxlanMode:
                         description: Contains configuration for VXLAN tunneling for this pool.
                           If not specified, then this is defaulted to "Never" (i.e. VXLAN
-                          tunelling is disabled).
+                          tunneling is disabled).
                         type: string
                     required:
                     - cidr
@@ -2596,12 +2126,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   KubeControllersConfigurationCRD:
     Type: "Custom::KubeManifest"
@@ -2612,8 +2136,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: kubecontrollersconfigurations.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2648,15 +2170,6 @@ Resources:
                         description: Controllers enables and configures individual Kubernetes
                           controllers
                         properties:
-                          federatedServices:
-                            description: FederatedServices enables and configures the federatedservices
-                              controller. Disabled by default.
-                            properties:
-                              reconcilerPeriod:
-                                description: 'ReconcilerPeriod is the period to perform reconciliation.
-                                  [Default: 5m]'
-                                type: string
-                            type: object
                           namespace:
                             description: Namespace enables and configures the namespace controller.
                               Enabled by default, set to nil to disable.
@@ -2752,15 +2265,6 @@ Resources:
                             description: Controllers enables and configures individual Kubernetes
                               controllers
                             properties:
-                              federatedServices:
-                                description: FederatedServices enables and configures the
-                                  federatedservices controller. Disabled by default.
-                                properties:
-                                  reconcilerPeriod:
-                                    description: 'ReconcilerPeriod is the period to perform
-                                      reconciliation. [Default: 5m]'
-                                    type: string
-                                type: object
                               namespace:
                                 description: Namespace enables and configures the namespace
                                   controller. Enabled by default, set to nil to disable.
@@ -2844,12 +2348,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   NetworkPolicyCRD:
     Type: "Custom::KubeManifest"
@@ -2860,8 +2358,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: networkpolicies.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -2909,15 +2405,6 @@ Resources:
                               description: Destination contains the match criteria that apply
                                 to destination entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -3123,15 +2610,6 @@ Resources:
                               description: Source contains the match criteria that apply to
                                 source entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -3258,15 +2736,6 @@ Resources:
                               description: Destination contains the match criteria that apply
                                 to destination entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -3472,15 +2941,6 @@ Resources:
                               description: Source contains the match criteria that apply to
                                 source entity.
                               properties:
-                                domains:
-                                  description: Domains is an optional field, valid for egress
-                                    Allow rules only, that restricts the rule to apply only
-                                    to traffic to one of the specified domains.  If this field
-                                    is specified, Action must be Allow, and Nets and Selector
-                                    must both be left empty.
-                                  items:
-                                    type: string
-                                  type: array
                                 namespaceSelector:
                                   description: "NamespaceSelector is an optional field that
                                     contains a selector expression. Only traffic that originates
@@ -3591,10 +3051,10 @@ Resources:
                       order:
                         description: Order is an optional field that specifies the order in
                           which the policy is applied. Policies with higher "order" are applied
-                          after those with lower order within the same tier.  If the order
-                          is omitted, it may be considered to be "infinite" - i.e. the policy
-                          will be applied last.  Policies with identical order will be applied
-                          in alphanumerical order based on the Policy "Name" within the tier.
+                          after those with lower order.  If the order is omitted, it may be
+                          considered to be "infinite" - i.e. the policy will be applied last.  Policies
+                          with identical order will be applied in alphanumerical order based
+                          on the Policy "Name".
                         type: number
                       selector:
                         description: "The selector is an expression used to pick pick out
@@ -3619,14 +3079,6 @@ Resources:
                         description: ServiceAccountSelector is an optional field for an expression
                           used to select a pod based on service accounts.
                         type: string
-                      tier:
-                        description: The name of the tier that this policy belongs to.  If
-                          this is omitted, the default tier (name is "default") is assumed.  The
-                          specified tier must exist in order to create security policies within
-                          the tier, the "default" tier is created automatically if it does
-                          not exist, this means for deployments requiring only a single Tier,
-                          the tier name may be omitted on all policy management requests.
-                        type: string
                       types:
                         description: "Types indicates whether this policy applies to ingress,
                           or to egress, or to both.  When not explicitly specified (and so
@@ -3647,12 +3099,6 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
 
   NetworkSetCRD:
     Type: "Custom::KubeManifest"
@@ -3663,8 +3109,6 @@ Resources:
         apiVersion: apiextensions.k8s.io/v1
         kind: CustomResourceDefinition
         metadata:
-          annotations:
-            controller-gen.kubebuilder.io/version: (devel)
           name: networksets.crd.projectcalico.org
         spec:
           group: crd.projectcalico.org
@@ -3705,9 +3149,3 @@ Resources:
                 type: object
             served: true
             storage: true
-        status:
-          acceptedNames:
-            kind: ""
-            plural: ""
-          conditions: []
-          storedVersions: []
