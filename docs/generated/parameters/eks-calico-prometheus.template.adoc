@@ -1,7 +1,0 @@
-
-.Calico for EKS
-[width="100%",cols="16%,11%,73%",options="header",]
-|===
-|Parameter label (name) |Default value|Description|EKS cluster name
-(`KubeClusterName`)|`**__Requires input__**`|Name of the EKS cluster in which to deploy Calico.
-|===

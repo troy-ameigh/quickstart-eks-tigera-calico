@@ -3,14 +3,7 @@
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|EKS cluster name
-(`KubeClusterName`)|`**__Requires input__**`|Name of the EKS cluster in which to deploy Calico.|Product variant
-(`ProductVariant`)|`Calico`|Whether to install Calico or Calico Enterprise.
-|===
-.Calico Enterprise options
-[width="100%",cols="16%,11%,73%",options="header",]
-|===
-|Parameter label (name) |Default value|Description|Image pull secret
-(`DockerConfigJSONBase64`)|`**__Requires input__**`|Base64 encoded Docker pull configuration for pulling Calico Enterprise images.
+(`KubeClusterName`)|`**__Requires input__**`|Name of the EKS cluster in which to deploy Calico.
 |===
 .AWS Quick Start configuration
 [width="100%",cols="16%,11%,73%",options="header",]
