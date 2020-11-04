@@ -22,7 +22,15 @@ calico   True        False         False      1m16s
 
 You're now ready to use {partner-product-name}! To begin using the software, follow this guide to https://docs.projectcalico.org/security/kubernetes-network-policy[get started with Kubernetes network policy^].
 
-To enable additional {partner-product-name} Enterprise features, see the https://www.tigera.io/tigera-products/calico-enterprise/?utm_campaign=eksquickstart&utm_medium=web&utm_source=aws[Tigera documentation^].
+See the https://bit.ly/3jHVKCi[Tigera Enterprise documentation] to enable additional features like:
+
+* Hierarchical network policy
+* FQDN / DNS based network policy
+* Rich graphical user interface
+* RBAC controls with audit trail & continuous compliance
+
+NOTE: For a full list of {partner-product-name} Enterprise features use this https://docs.projectcalico.org/calico-enterprise/[link].
+
 
 == Other useful information
 

@@ -1,3 +1,6 @@
 // Include details about the license and how they can sign up. If no license is required, clarify that. 
 
 {partner-product-name} binaries are provided freely under the Apache 2.0 license.
+
+To enable additional {partner-product-name} Enterprise features, see the https://bit.ly/3jHVKCi[Tigera Enterprise documentation^].
+
