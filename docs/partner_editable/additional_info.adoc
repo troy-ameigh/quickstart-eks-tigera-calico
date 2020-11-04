@@ -9,7 +9,7 @@ Once installed, you can verify that everything is working with the following com
 kubectl get tigerastatus
 ```
 
-All rows should indicate a status of "Available", and no rows should show "Degraded" or "Progressing".
+A successful installation will indicate a status of "Available", with "Degraded" and "Progressing" marked as "False".
 
 For example:
 
@@ -22,13 +22,15 @@ calico   True        False         False      1m16s
 
 You're now ready to use {partner-product-name}! To begin using the software, follow this guide to https://docs.projectcalico.org/security/kubernetes-network-policy[get started with Kubernetes network policy^].
 
-If you installed {partner-product-name} Enterprise, the following steps should be run post-installation to complete configuration of the software. Otherwise, no additional steps are required.
+See the https://bit.ly/3jHVKCi[Tigera Enterprise documentation] to enable additional features like:
 
-1. Install the license provided to you by Tigera.
+* Hierarchical network policy
+* FQDN / DNS based network policy
+* Rich graphical user interface
+* RBAC controls with audit trail & continuous compliance
 
-   kubectl create -f /path/to/license.yaml
+NOTE: For a full list of {partner-product-name} Enterprise features use this https://docs.projectcalico.org/calico-enterprise/[link].
 
-1. Follow the https://docs.tigera.io/introduction/[Tigera documentation^] for enabling additional {partner-product-name} Enterprise features.
 
 == Other useful information
 
@@ -37,10 +39,3 @@ Useful references for getting started with {partner-product-name}:
 - https://docs.projectcalico.org/security/adopt-zero-trust[Adopt a zero-trust network model for security^]
 - https://docs.projectcalico.org/security/kubernetes-network-policy[Get started with Kubernetes network policy^]
 - https://docs.projectcalico.org/security/calico-network-policy[Get started with {partner-product-name} network policy^]
-
-Useful references for getting started with {partner-product-name} Enterprise:
-
-- https://docs.tigera.io/getting-started/create-storage[Configure storage for logs and reports^]
-- https://docs.tigera.io/security/tiered-policy[Create tiered network policy^]
-- https://docs.tigera.io/security/domain-based-policy[Using domain names in policy rules^]
-- https://docs.tigera.io/security/aws-integration/get-started[Configure {partner-product-name} Enterprise AWS security group integration^]
