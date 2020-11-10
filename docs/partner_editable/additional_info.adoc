@@ -3,39 +3,35 @@
 
 == Test the deployment
 
-Once installed, you can verify that everything is working with the following command:
+Once installed, run the following command to verify that everything is working:
 
 ```
 kubectl get tigerastatus
 ```
 
-A successful installation will indicate a status of "Available", with "Degraded" and "Progressing" marked as "False".
-
-For example:
+A successful installation has a status of *Available* with *Degraded* and *Progressing* marked as *False*:
 
 ```
 NAME     AVAILABLE   PROGRESSING   DEGRADED   SINCE
 calico   True        False         False      1m16s
 ```
 
-== Post deployment steps
+== Post-deployment steps
 
-You're now ready to use {partner-product-name}! To begin using the software, follow this guide to https://docs.projectcalico.org/security/kubernetes-network-policy[get started with Kubernetes network policy^].
+{partner-product-short-name} is now ready to use. To get started, see https://docs.projectcalico.org/security/kubernetes-network-policy[Get started with Kubernetes network policy^].
 
-See the https://bit.ly/3jHVKCi[Tigera Enterprise documentation] to enable additional features like:
+To enable additional features, see https://bit.ly/3jHVKCi[Calico Enterprise Features^] on the Tigera website. Features that can be enabled include the following:
 
 * Hierarchical network policy
-* FQDN / DNS based network policy
+* FQDN/DNS-based network policy
 * Rich graphical user interface
-* RBAC controls with audit trail & continuous compliance
+* RBAC controls with audit trail and continuous compliance
 
-NOTE: For a full list of {partner-product-name} Enterprise features use this https://docs.projectcalico.org/calico-enterprise/[link].
+NOTE: For a complete list of enterprise features for {partner-product-short-name}, see the https://docs.projectcalico.org/calico-enterprise/[Calico Enterprise documentation^].
 
 
-== Other useful information
+== Other useful information for {partner-product-short-name}
 
-Useful references for getting started with {partner-product-name}:
-
-- https://docs.projectcalico.org/security/adopt-zero-trust[Adopt a zero-trust network model for security^]
-- https://docs.projectcalico.org/security/kubernetes-network-policy[Get started with Kubernetes network policy^]
-- https://docs.projectcalico.org/security/calico-network-policy[Get started with {partner-product-name} network policy^]
+* https://docs.projectcalico.org/security/adopt-zero-trust[Adopt a zero-trust network model for security^]
+* https://docs.projectcalico.org/security/kubernetes-network-policy[Get started with Kubernetes network policy^]
+* https://docs.projectcalico.org/security/calico-network-policy[Get started with Calico network policy^]
