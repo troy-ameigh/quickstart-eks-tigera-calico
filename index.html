@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Calico on the AWS Cloud</title>
+<title>Tigera Calico on the AWS Cloud on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -803,14 +803,13 @@ p.footer-text a{color:#d7d8d8}
 </li>
 <li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
-<li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
-<li><a href="#_prepare_existing_eks_cluster">Prepare existing EKS cluster</a></li>
+<li><a href="#_prepare_an_existing_eks_cluster">Prepare an existing EKS cluster</a></li>
 <li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
 </ul>
 </li>
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
-<li><a href="#_post_deployment_steps">Post deployment steps</a></li>
-<li><a href="#_other_useful_information">Other useful information</a></li>
+<li><a href="#_post_deployment_steps">Post-deployment steps</a></li>
+<li><a href="#_other_useful_information_for_calico">Other useful information for Calico</a></li>
 <li><a href="#_faq">FAQ</a></li>
 <li><a href="#_parameter_reference">Parameter reference</a>
 <ul class="sectlevel2">
@@ -829,7 +828,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_calico" class="discrete text-center">Calico</h2>
+<h2 id="_tigera_calico_on_the_aws_cloud" class="discrete text-center">Tigera Calico on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
@@ -838,8 +837,8 @@ p.footer-text a{color:#d7d8d8}
 </div>
 <div class="paragraph text-center">
 <p><strong>November 2020</strong><br>
-<em>Casey Davenport - Tigera</em><br>
-<em>Troy Ameigh - AWS Quick Start Team</em></p>
+<em>Casey Davenport, Tigera</em><br>
+<em>Troy Ameigh, AWS Quick Start team</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -863,10 +862,7 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start reference deployment guide provides step-by-step instructions for deploying Tigera Calico on the AWS Cloud.</p>
-</div>
-<div class="paragraph">
-<p>This Quick Start is for users who want to use Calico to provide network policy enforcement capabilities on their Amazon EKS Kubernetes clusters. Clusters deployed using this quickstart are capable of upgrades to Calico Enterprise for enterprise-grade security and compliance use-cases.</p>
+<p>This Quick Start guide provides step-by-step instructions for deploying Tigera Calico on the AWS Cloud. It&#8217;s for users who want to use Calico to provide network-policy enforcement on Amazon Elastic Kubernetes Service (Amazon EKS) clusters. Clusters deployed by this Quick Start are upgradable for enterprise-grade security and compliance use cases.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -886,10 +882,7 @@ Amazon may share user-deployment information with the AWS Partner that collabora
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Calico binaries are provided freely under the Apache 2.0 license.</p>
-</div>
-<div class="paragraph">
-<p>To enable additional Calico Enterprise features, see the <a href="https://bit.ly/3jHVKCi" target="_blank" rel="noopener">Tigera Enterprise documentation</a>.</p>
+<p>Calico binaries are provided for free under the Apache 2.0 license. To enable additional enterprise features, see <a href="https://bit.ly/3jHVKCi" target="_blank" rel="noopener">Calico Enterprise Features</a>.</p>
 </div>
 </div>
 </div>
@@ -897,32 +890,24 @@ Amazon may share user-deployment information with the AWS Partner that collabora
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start with default parameters into an existing Amazon EKS cluster builds the following environment. For a diagram of the new VPC and Amazon EKS cluster, see the <a href="https://aws-quickstart.github.io/quickstart-amazon-eks/" target="_blank" rel="noopener">Amazon EKS on the AWS Cloud</a>.</p>
+<p>Deploying this Quick Start with default parameters into an existing Amazon EKS cluster builds the following environment. For a diagram of the new virtual private cloud (VPC) and Amazon EKS cluster, see <a href="https://aws-quickstart.github.io/quickstart-amazon-eks/" target="_blank" rel="noopener">Amazon EKS on the AWS Cloud</a>.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
 <a class="image" href="images/architecture_diagram.png"><img src="images/architecture_diagram.png" alt="Architecture"></a>
 </div>
-<div class="title">Figure 1. Quick Start architecture for <em>Calico</em></div>
+<div class="title">Figure 1. Quick Start architecture for <em>Tigera Calico on the AWS Cloud</em></div>
 </div>
 <div class="paragraph">
-<p>As shown in figure 1, the Quick Start sets up the following:</p>
-</div>
-<div class="paragraph">
-<p>Deploying this Quick Start for a new virtual private cloud (VPC) with
-<strong>default parameters</strong> builds the following <em>Calico</em> environment in the
-AWS Cloud.</p>
-</div>
-<div class="paragraph">
-<p>As shown in Figure 1, the Quick Start sets up the following in your Kubernetes cluster:</p>
+<p>As shown in Figure 1, the Quick Start sets up the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The Tigera Operator and associated resources in its own namespace.</p>
+<p>Tigera Operator and associated resources in its own namespace.</p>
 </li>
 <li>
-<p>A custom resource which configures the Calico installation.</p>
+<p>A custom resource that configures the Calico installation.</p>
 </li>
 <li>
 <p>Calico resources in the <code>calico-system</code> namespace.</p>
@@ -943,7 +928,7 @@ and <a href="https://aws.amazon.com/training/">AWS Training and Certification</a
 deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start assumes familiarity with basic concepts in container networking, Amazon EKS, and Kubernetes.</p>
+<p>This Quick Start also assumes familiarity with the basic concepts of container networking, Amazon EKS, and Kubernetes.</p>
 </div>
 </div>
 <div class="sect2">
@@ -964,7 +949,7 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <div class="sect2">
 <h3 id="_iam_permissions">IAM permissions</h3>
 <div class="paragraph">
-<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources and actions the templates deploy.</p>
+<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">AWS Identity and Access Management (IAM)</a> permissions for the resources and actions that each template deploys.</p>
 </div>
 <div class="paragraph">
 <p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
@@ -978,13 +963,13 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy {partner-product-short-name} into a new VPC (end-to-end deployment)</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, EKS cluster, a node group, and other infrastructure components. It then deploys {partner-product-short-name} into this new EKS cluster.</p>
+<p><strong>Deploy Calico into a new VPC (end-to-end deployment)</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, EKS cluster, a node group, and other infrastructure components. It then deploys Calico into this new EKS cluster.</p>
 </li>
 <li>
-<p><strong>Deploy {partner-product-short-name} into a new EKS cluster of an existing VPC</strong>. This option builds a new Amazon EKS cluster, node group, and other infrastructure components into an existing VPC. It then deploys {partner-product-short-name} into this new EKS cluster.</p>
+<p><strong>Deploy Calico into a new EKS cluster of an existing VPC</strong>. This option builds a new Amazon EKS cluster, node group, and other infrastructure components into an existing VPC. It then deploys Calico into this new EKS cluster.</p>
 </li>
 <li>
-<p><strong>Deploy {partner-product-short-name} into an existing EKS cluster</strong>. This option provisions {partner-product-short-name} in your existing AWS infrastructure. Note that when deploying into an EKS cluster that was not created by the <a href="https://aws-quickstart.github.io/quickstart-amazon-eks/">Amazon EKS on the AWS Cloud</a> Quick Start, you must prepare the cluster as described in the <a href="#_deployment_steps">Deployment steps</a> section.</p>
+<p><strong>Deploy Calico into an existing EKS cluster</strong>. This option provisions Calico in your existing AWS infrastructure. Note that when deploying into an EKS cluster that was not created by the <a href="https://aws-quickstart.github.io/quickstart-amazon-eks/">Amazon EKS on the AWS Cloud</a> Quick Start, you must prepare the cluster as described in the <a href="#_deployment_steps">Deployment steps</a> section.</p>
 </li>
 </ul>
 </div>
@@ -995,20 +980,7 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <h2 id="_deployment_steps">Deployment steps</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_sign_in_to_your_aws_account">Sign in to your AWS account</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a>, earlier in this guide.</p>
-</li>
-<li>
-<p>Ensure that your AWS account is configured correctly, as discussed in the <a href="#_technical_requirements">Technical requirements</a> section.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_prepare_existing_eks_cluster">Prepare existing EKS cluster</h3>
+<h3 id="_prepare_an_existing_eks_cluster">Prepare an existing EKS cluster</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1024,16 +996,19 @@ This step is only required if you launch this Quick Start into an existing Amazo
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to your AWS account, and launch the <a href="https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/template?stackName=Amazon-EKS&amp;templateURL=https://aws-quickstart.s3.us-east-1.amazonaws.com/quickstart-amazon-eks/templates/amazon-eks-entrypoint-existing-cluster.template.yaml">cluster preparation template</a>.</p>
+<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a>, earlier in this guide.</p>
 </li>
 <li>
-<p>The template launches in the US East (Ohio) Region by default. To change the Region, choose another Region from list in the upper-right corner of the navigation bar.</p>
+<p>Launch the <a href="https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/template?stackName=Amazon-EKS&amp;templateURL=https://aws-quickstart.s3.us-east-1.amazonaws.com/quickstart-amazon-eks/templates/amazon-eks-entrypoint-existing-cluster.template.yaml">cluster preparation template</a>.</p>
+</li>
+<li>
+<p>The template launches in the US East (Ohio) Region by default. To change the Region, choose another Region from the list in the upper-right corner of the navigation bar.</p>
 </li>
 <li>
 <p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
 </li>
 <li>
-<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Enter the name of the Amazon EKS cluster you want to deploy to as well as the subnet IDs and security group ID associated with the cluster. These can be obtained from the EKS cluster console.</p>
+<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Enter the name of the Amazon EKS cluster you want to deploy to in addition to the subnet IDs and security group ID associated with the cluster. These can be obtained from the EKS cluster console.</p>
 </li>
 <li>
 <p>On the <strong>Options</strong> page, specify the key-value pairs for resources in your stack, and set advanced options. When you’re done, choose <strong>Next</strong>.</p>
@@ -1110,7 +1085,7 @@ You are responsible for the cost of the AWS services used while running this Qui
 </tbody>
 </table>
 <div class="paragraph">
-<p>New cluster deployments take about 90 minutes to complete. Existing-cluster deployments take about 10 minutes to complete.</p>
+<p>New clusters take about 1.5 hours to deploy. Existing clusters take about 5–30 minutes to deploy.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1119,7 +1094,7 @@ You are responsible for the cost of the AWS services used while running this Qui
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you deploy {partner-product-short-name} into an existing VPC, ensure that any private subnets have <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables to allow the Quick Start to download packages and software. Also, ensure that the domain name in the DHCP options is configured. For more information, see <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP options sets</a>.
+If you deploy Calico into an existing VPC, ensure that any private subnets have <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables to allow the Quick Start to download packages and software. Also, ensure that the domain name in the DHCP options is configured. For more information, see <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP options sets</a>.
 </td>
 </tr>
 </table>
@@ -1127,7 +1102,7 @@ If you deploy {partner-product-short-name} into an existing VPC, ensure that any
 <div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for {partner-product-short-name} is built. The template launches in the us-east-1 Region by default.</p>
+<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for Calico is built. The template launches in the us-east-1 Region by default.</p>
 </li>
 <li>
 <p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
@@ -1149,7 +1124,7 @@ is provided in the <a href="#_parameter_reference">Parameter reference</a> secti
 <p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Calico deployment is ready.</p>
 </li>
 <li>
-<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Calico outputs after successful deployment</a>, to view the created resources.</p>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in the following figure.</p>
 </li>
 </ol>
 </div>
@@ -1166,7 +1141,7 @@ is provided in the <a href="#_parameter_reference">Parameter reference</a> secti
 <h2 id="_test_the_deployment">Test the deployment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once installed, you can verify that everything is working with the following command:</p>
+<p>Once installed, run the following command to verify that everything is working:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1174,10 +1149,7 @@ is provided in the <a href="#_parameter_reference">Parameter reference</a> secti
 </div>
 </div>
 <div class="paragraph">
-<p>A successful installation will indicate a status of "Available", with "Degraded" and "Progressing" marked as "False".</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
+<p>A successful installation has a status of <strong>Available</strong> with <strong>Degraded</strong> and <strong>Progressing</strong> marked as <strong>False</strong>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1188,13 +1160,13 @@ calico   True        False         False      1m16s</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_post_deployment_steps">Post deployment steps</h2>
+<h2 id="_post_deployment_steps">Post-deployment steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You&#8217;re now ready to use Calico! To begin using the software, follow this guide to <a href="https://docs.projectcalico.org/security/kubernetes-network-policy" target="_blank" rel="noopener">get started with Kubernetes network policy</a>.</p>
+<p>Calico is now ready to use. To get started, see <a href="https://docs.projectcalico.org/security/kubernetes-network-policy" target="_blank" rel="noopener">Get started with Kubernetes network policy</a>.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="https://bit.ly/3jHVKCi">Tigera Enterprise documentation</a> to enable additional features like:</p>
+<p>To enable additional features, see <a href="https://bit.ly/3jHVKCi" target="_blank" rel="noopener">Calico Enterprise Features</a> on the Tigera website. Features that can be enabled include the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1202,13 +1174,13 @@ calico   True        False         False      1m16s</code></pre>
 <p>Hierarchical network policy</p>
 </li>
 <li>
-<p>FQDN / DNS based network policy</p>
+<p>FQDN/DNS-based network policy</p>
 </li>
 <li>
 <p>Rich graphical user interface</p>
 </li>
 <li>
-<p>RBAC controls with audit trail &amp; continuous compliance</p>
+<p>RBAC controls with audit trail and continuous compliance</p>
 </li>
 </ul>
 </div>
@@ -1219,7 +1191,7 @@ calico   True        False         False      1m16s</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For a full list of Calico Enterprise features use this <a href="https://docs.projectcalico.org/calico-enterprise/">link</a>.
+For a complete list of enterprise features for Calico, see the <a href="https://docs.projectcalico.org/calico-enterprise/" target="_blank" rel="noopener">Calico Enterprise documentation</a>.
 </td>
 </tr>
 </table>
@@ -1227,11 +1199,8 @@ For a full list of Calico Enterprise features use this <a href="https://docs.pro
 </div>
 </div>
 <div class="sect1">
-<h2 id="_other_useful_information">Other useful information</h2>
+<h2 id="_other_useful_information_for_calico">Other useful information for Calico</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Useful references for getting started with Calico:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1254,7 +1223,7 @@ For a full list of Calico Enterprise features use this <a href="https://docs.pro
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (For Windows, look at the log files in %ProgramFiles%\Amazon\EC2ConfigService and C:\cfn\log.)</p>
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained, and the instance remains running so you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1263,25 +1232,25 @@ For a full list of Calico Enterprise features use this <a href="https://docs.pro
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for the stack. Ensure to delete the stack when you finish troubleshooting.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>For additional information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a> on the AWS website.</p>
+<p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a size limitation error when I deployed the AWS CloudFormation templates.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
+<p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer, or from a location other than an S3 bucket, you might encounter template size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Q.</strong> Does this quickstart install Calico networking for Kubernetes pods as well as network policy?</p>
+<p><strong>Q.</strong> Does this Quick Start install Calico networking for Kubernetes pods as well as a network policy?</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> This quickstart currently installs Calico for policy only, with networking provided by the Amazon VPC CNI plugin.</p>
+<p><strong>A.</strong> This Quick Start installs Calico for a policy only, with networking provided by the Amazon VPC CNI plugin.</p>
 </div>
 </div>
 </div>
