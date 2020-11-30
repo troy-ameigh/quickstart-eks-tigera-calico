@@ -1,1 +1,3 @@
-This Quick Start guide provides step-by-step instructions for deploying Tigera {partner-product-short-name} on the AWS Cloud. It's for users who want to use {partner-product-short-name} to provide network-policy enforcement on Amazon Elastic Kubernetes Service (Amazon EKS) clusters. Clusters deployed by this Quick Start are upgradable for enterprise-grade security and compliance use cases.
+This Quick Start guide provides step-by-step instructions for deploying Tigera {partner-product-short-name} on the AWS Cloud. It's for users who want to use {partner-product-short-name} to provide network-policy enforcement on Amazon Elastic Kubernetes Service (Amazon EKS) clusters. This gives you a rich network policy model that makes it easy to lock down communications, to allow only traffic flows you want. This Clusters deployed by this Quick Start are upgradable for enterprise-grade security and compliance use cases.
+
+
