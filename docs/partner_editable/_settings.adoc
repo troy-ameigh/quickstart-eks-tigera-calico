@@ -2,7 +2,7 @@
 :partner-product-name: Tigera Calico on the AWS Cloud
 :partner-product-short-name: Calico
 :partner-company-name: Tigera
-:doc-month: November
+:doc-month: December
 :doc-year: 2020
 :partner-contributors: Casey Davenport, {partner-company-name}
 :quickstart-contributors: Troy Ameigh, AWS Quick Start team
