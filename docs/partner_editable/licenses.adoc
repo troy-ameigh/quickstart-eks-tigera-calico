@@ -2,7 +2,7 @@
 
 {partner-product-short-name} binaries are provided for free under the Apache 2.0 license. To enable https://bit.ly/3jHVKCi[Calico Enterprise Features^]. follow the steps below to get your free trial to access Calico Enterprise and run it directly on your EKS cluster.
 
-- Go to the Calico Enterprise trial registration website using https://www.tigera.io/tigera-products/enterprise-trial[this^] link.
+- Go to the Calico Enterprise trial registration website using https://www.tigera.io/tigera-products/enterprise-trial?utm_campaign=eksquickstart&utm_medium=web&utm_source=aws[this^] link.
 
 - Fill out your contact details along with your work email address to ensure you receive your trial environment details promptly.
 
